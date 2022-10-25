@@ -18,7 +18,7 @@ import data
 
 def citeseer_ego():
     _, _, G = data.Graph_load(dataset='citeseer')
-    G = max(nx.connected_component_subgraphs(G), key=len)
+    G = max((G.subgraph(c) for c in nx.connected_components(G)), key=len)
     G = nx.convert_node_labels_to_integers(G)
     graphs = []
     for i in range(G.number_of_nodes()):
@@ -41,13 +41,13 @@ def caveman_special(c=2,k=20,p_path=0.1,p_edge=0.3):
         u = np.random.randint(0, k)
         v = np.random.randint(k, k * 2)
         G.add_edge(u, v)
-    G = max(nx.connected_component_subgraphs(G), key=len)
+    G = max((G.subgraph(c) for c in nx.connected_components(G)), key=len)
     return G
 
 def n_community(c_sizes, p_inter=0.01):
     graphs = [nx.gnp_random_graph(c_sizes[i], 0.7, seed=i) for i in range(len(c_sizes))]
     G = nx.disjoint_union_all(graphs)
-    communities = list(nx.connected_component_subgraphs(G))
+    communities = list((G.subgraph(c) for c in nx.connected_components(G)))
     for i in range(len(communities)):
         subG1 = communities[i]
         nodes1 = list(subG1.nodes())
@@ -453,7 +453,7 @@ def pick_connected_component_new(G):
             break
     node_list = list(range(id)) # only include node prior than node "id"
     G = G.subgraph(node_list)
-    G = max(nx.connected_component_subgraphs(G), key=len)
+    G = max((G.subgraph(c) for c in nx.connected_components(G)), key=len)
     return G
 
 # load a list of graphs
@@ -461,11 +461,12 @@ def load_graph_list(fname,is_real=True):
     with open(fname, "rb") as f:
         graph_list = pickle.load(f)
     for i in range(len(graph_list)):
-        edges_with_selfloops = graph_list[i].selfloop_edges()
+        edges_with_selfloops = list(nx.selfloop_edges(graph_list[i]))
+        print(edges_with_selfloops)
         if len(edges_with_selfloops)>0:
             graph_list[i].remove_edges_from(edges_with_selfloops)
         if is_real:
-            graph_list[i] = max(nx.connected_component_subgraphs(graph_list[i]), key=len)
+            graph_list[i] = max((graph_list[i].subgraph(c) for c in nx.connected_components(graph_list[i])), key=len)
             graph_list[i] = nx.convert_node_labels_to_integers(graph_list[i])
         else:
             graph_list[i] = pick_connected_component_new(graph_list[i])

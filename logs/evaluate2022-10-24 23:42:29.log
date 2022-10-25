@@ -1,0 +1,10 @@
+INFO:root:processing: ./eval_results/GraphRNN_RNN_caveman.csv
+WARNING:root:Not found: ./graphs/GraphRNN_RNN_caveman_4_128_test_0.dat
+INFO:root:processing: ./eval_results/GraphRNN_RNN_grid.csv
+WARNING:root:Not found: ./graphs/GraphRNN_RNN_grid_4_128_test_0.dat
+INFO:root:processing: ./eval_results/GraphRNN_RNN_barabasi.csv
+WARNING:root:Not found: ./graphs/GraphRNN_RNN_barabasi_4_128_test_0.dat
+INFO:root:processing: ./eval_results/GraphRNN_RNN_citeseer.csv
+WARNING:root:Not found: ./graphs/GraphRNN_RNN_citeseer_4_128_test_0.dat
+INFO:root:processing: ./eval_results/GraphRNN_RNN_DD.csv
+WARNING:root:Not found: ./graphs/GraphRNN_RNN_DD_4_128_test_0.dat
