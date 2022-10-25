@@ -138,6 +138,7 @@ def load_ground_truth(dir_input, dataset_name, model_name='GraphRNN_RNN'):
         graph_test = utils.load_graph_list(fname_test,is_real=True)
     except:
         print('Not found: ' + fname_test)
+        print(0)
         logging.warning('Not found: ' + fname_test)
         return None
     return graph_test
@@ -184,6 +185,7 @@ def evaluation_epoch(dir_input, fname_output, model_name, dataset_name, args, is
             graph_test = utils.load_graph_list(fname_test,is_real=True)
         except:
             print('Not found: ' + fname_test)
+            print(1)
             logging.warning('Not found: ' + fname_test)
             return None
 
@@ -211,6 +213,7 @@ def evaluation_epoch(dir_input, fname_output, model_name, dataset_name, args, is
                         graph_pred = utils.load_graph_list(fname_pred,is_real=False) # default False
                     except:
                         print('Not found: '+ fname_pred)
+                        print(2)
                         logging.warning('Not found: '+ fname_pred)
                         continue
                     # clean graphs
@@ -231,6 +234,7 @@ def evaluation_epoch(dir_input, fname_output, model_name, dataset_name, args, is
 
                     # evaluate MMD test
                     mmd_degree = eval.stats.degree_stats(graph_test, graph_pred)
+                    print(mmd_degree)
                     mmd_clustering = eval.stats.clustering_stats(graph_test, graph_pred)
                     try:
                         mmd_4orbits = eval.stats.orbit_stats_all(graph_test, graph_pred)
@@ -327,6 +331,7 @@ def evaluation_epoch(dir_input, fname_output, model_name, dataset_name, args, is
                     graph_pred = utils.load_graph_list(fname_pred, is_real=True)  # default False
                 except:
                     print('Not found: ' + fname_pred)
+                    print(3)
                     logging.warning('Not found: ' + fname_pred)
                     continue
                 # clean graphs

@@ -445,9 +445,9 @@ def pick_connected_component(G):
     return G.subgraph(node_list)
 
 def pick_connected_component_new(G):
-    adj_list = G.adjacency_list()
-    for id,adj in enumerate(adj_list):
-        id_min = min(adj)
+    adj_list = G.adjacency()
+    for id, adj in enumerate(adj_list):
+        id_min = min(adj[1].keys())
         if id<id_min and id>=1:
         # if id<id_min and id>=4:
             break
